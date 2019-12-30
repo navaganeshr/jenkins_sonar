@@ -5,7 +5,9 @@ agent {label 'master'}
 
  stages 
       {
-       steps 
+      stage('Nexus:upload')
+       {
+        steps 
               {
                
              TAG = VersionNumber (versionNumberString: '${BUILD_DATE_FORMATTED, "yyyyMMdd"}-develop-${BUILDS_TODAY}')
@@ -18,5 +20,5 @@ agent {label 'master'}
               }
       }
 
-
+    }
 }
