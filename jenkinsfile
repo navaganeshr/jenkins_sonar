@@ -3,7 +3,7 @@ pipeline
 
 agent {label 'master'}
 environment {
-        tag = VersionNumber(versionNumberString: '${BUILDS_TODAY}');
+        tag = VersionNumber(versionNumberString: '${BUILDS_ALL_TIME}');
         }
 
  stages 
