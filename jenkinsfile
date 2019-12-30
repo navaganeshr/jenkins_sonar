@@ -15,7 +15,7 @@ environment {
                
                sh ''' 
                cd /root/
-               #curl -v -u admin:admin123 --upload-file ora_uim_baseextpts.jar http://192.168.56.111:8081/nexus/repository/UIM/UIM_NEXUS/ora_uim_baseextpts/${tag}/ora_uim_baseextpts-${tag}.jar
+               curl -v -u admin:admin123 --upload-file ora_uim_baseextpts.jar http://192.168.56.111:8081/nexus/repository/UIM/UIM_NEXUS/ora_uim_baseextpts/${tag}/ora_uim_baseextpts-${tag}.jar
                '''
               
               }
