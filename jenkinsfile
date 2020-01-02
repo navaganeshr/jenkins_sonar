@@ -5,7 +5,7 @@ agent {label 'master'}
 environment {
         PROJECT_ARCHIVE_NAME = sh (script : "echo $BRANCH_NAME | awk -F \"/\" '{print \$2}' " , returnStdout: true).trim()
         tag = VersionNumber(versionNumberString: '${BUILDS_ALL_TIME}');
-        def TAG =  sh (script : "echo ${PROJECT_ARCHIVE_NAME}-${tag} | tee " , returnStdout: true).trim()
+        VERSION =  sh (script : "echo ${PROJECT_ARCHIVE_NAME}-${tag} " , returnStdout: true).trim()
         }
 
  stages 
@@ -18,7 +18,7 @@ environment {
                sh ''' 
                cd /root/
                echo "${TAG}"
-               curl -v -u admin:admin123 --upload-file ora_uim_baseextpts.jar http://192.168.56.111:8081/nexus/repository/UIM/UIM_NEXUS/ora_uim_baseextpts/${TAG}/ora_uim_baseextpts-${TAG}.jar
+               curl -v -u admin:admin123 --upload-file ora_uim_baseextpts.jar http://192.168.56.111:8081/nexus/repository/UIM/UIM_NEXUS/ora_uim_baseextpts/${VERSION}/ora_uim_baseextpts-${VERSION}.jar
                '''
               
               }
