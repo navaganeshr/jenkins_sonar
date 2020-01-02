@@ -5,7 +5,7 @@ agent {label 'master'}
 environment {
         PROJECT_ARCHIVE_NAME = sh (script : "echo $BRANCH_NAME | awk -F \"/\" '{print \$2}' " , returnStdout: true).trim()
         tag = VersionNumber(versionNumberString: '${BUILDS_ALL_TIME}');
-        def TAG =  sh (script : "echo ${PROJECT_ARCHIVE_NAME}-${tag}" , returnStdout: true).trim()
+        def TAG =  sh (script : "echo ${PROJECT_ARCHIVE_NAME}-${tag} | tee " , returnStdout: true).trim()
         }
 
  stages 
