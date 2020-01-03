@@ -18,9 +18,8 @@ environment {
                sh ''' 
                cd /root/
                echo "${TAG}"
-               curl -v -u admin:admin123 --upload-file ora_uim_baseextpts.jar http://192.168.56.111:8081/nexus/repository/UIM/UIM_NEXUS/ora_uim_baseextpts/${VERSION}/ora_uim_baseextpts-${VERSION}.jar
-               #chmod a+x ${WORKSPACE}/emailgen.sh && bash emailgen.sh `echo ${VERSION}` `echo ${PROJECT_ARCHIVE_NAME}` && chmod 777 email.html
-               touch email.txt
+               curl -v -u admin:admin123 --upload-file ora_uim_baseextpts.jar                    http://192.168.56.111:8081/nexus/repository/UIM/UIM_NEXUS/ora_uim_baseextpts/${VERSION}/ora_uim_baseextpts-${VERSION}.jar
+               chmod a+x ${WORKSPACE}/emailgen.sh && bash emailgen.sh `echo ${VERSION}` `echo ${PROJECT_ARCHIVE_NAME}` 
                '''
               
               }
