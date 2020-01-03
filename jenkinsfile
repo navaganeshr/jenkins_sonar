@@ -19,7 +19,7 @@ environment {
                cd /root/
                echo "${TAG}"
                curl -v -u admin:admin123 --upload-file ora_uim_baseextpts.jar http://192.168.56.111:8081/nexus/repository/UIM/UIM_NEXUS/ora_uim_baseextpts/${VERSION}/ora_uim_baseextpts-${VERSION}.jar
-               sh ${WORKSPACE}/emailgen.sh
+               sh ${WORKSPACE}/emailgen.sh `echo ${VERSION}` `echo ${PROJECT_ARCHIVE_NAME}`
                '''
               
               }
