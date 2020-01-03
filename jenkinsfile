@@ -1,22 +1,50 @@
+def VERSION = '10'
+def PROJECT_ARCHIVE_NAME = 'master'
+
 pipeline 
 {
 
 agent {label 'master'}
+environment {
+        PROJECT_ARCHIVE_NAME = sh (script : "echo $BRANCH_NAME | awk -F \"/\" '{print \$2}' " , returnStdout: true).trim()
+        tag = VersionNumber(versionNumberString: '${BUILDS_ALL_TIME}');
+        VERSIONS =  sh (script : "echo ${PROJECT_ARCHIVE_NAME}-${tag} " , returnStdout: true).trim()
+        }
 
  stages 
       {
-       steps 
+      stage('Nexus:upload')
+       {
+        steps 
               {
                
-             TAG = VersionNumber (versionNumberString: '${BUILD_DATE_FORMATTED, "yyyyMMdd"}-develop-${BUILDS_TODAY}')
-             
-             sh ''' 
+               sh ''' 
                cd /root/
-               curl -v -u admin:admin123 --upload-file ora_uim_baseextpts.jar http://192.168.56.111:8081/nexus/repository/UIM/UIM_NEXUS/ora_uim_baseextpts/${TAG}/ora_uim_baseextpts-${TAG}.jar
+               echo "${TAG}"
+               curl -v -u admin:admin123 --upload-file ora_uim_baseextpts.jar http://192.168.56.111:8081/nexus/repository/UIM/UIM_NEXUS/ora_uim_baseextpts/${VERSION}/ora_uim_baseextpts-${VERSION}.jar
                '''
               
               }
       }
 
+ 
+ }
+post 
+   {
+        always { 
+                sh '''PROJECT_ARCHIVE_NAME=master && VERSION=10 '''
+                   
+            emailext( 
+                       mimeType: 'text/html',
+                       body: '<div style = "color:blue"><br/>Hi,<br/><br/><B>Jenkins Build Success !!!!!!! </B><br/><br/><br/><br/>Please find the job details below:<br/><br/><br/><ul> <li><B>TAG: </B> ${ENV(var: "VERSION")}</li><li><B>ARTIFACT: </B> VFQA_SCMS_UIM_Cartridge-${env.VERSION}.jar</li><li><B>BRANCH NAME : </B>${PROJECT_ARCHIVE_NAME}</li><li><B>Job: </B> ${JOB_NAME}</li><li><B>Build Number:</B> ${BUILD_NUMBER}</li><li><B>More info at: </B>${JOB_URL}</li></ul><br/><br/>Please find the build log attached<br/></div>',
+                       subject: 'Job Success: ${PROJECT_NAME}',
+                       to: "navaganeshr@maveric-systems.com"
+                                 
+                                  ) 
+            } 
+   }
 
 }
+
+
+
