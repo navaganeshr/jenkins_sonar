@@ -30,7 +30,7 @@ environment {
 post 
    {
         always { 
-                sh '''cd ${WORKSPACE} && sh emailgen.sh `echo ${VERSION}` `echo ${PROJECT_ARCHIVE_NAME}` '''
+                sh '''cd ${WORKSPACE} && sh emailgen.sh `echo ${VERSION}` `echo ${PROJECT_ARCHIVE_NAME}` `git rev-parse HEAD`'''
                    
             emailext( 
                        mimeType: 'text/html',
