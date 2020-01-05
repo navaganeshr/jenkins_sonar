@@ -6,6 +6,7 @@ environment {
         PROJECT_ARCHIVE_NAME = sh (script : "echo $BRANCH_NAME | awk -F \"/\" '{print \$2}' " , returnStdout: true).trim()
         tag = VersionNumber(versionNumberString: '${BUILDS_ALL_TIME}');
         VERSION =  sh (script : "echo ${PROJECT_ARCHIVE_NAME}-${tag} " , returnStdout: true).trim()
+        ARTIFACT_NAME = 'VFQA_SCMS_UIM_Cartridge'
         }
 
  stages 
