@@ -17,7 +17,7 @@ environment
        {
          steps 
              {
-              
+              sh ''' echo "the Step is success "  '''
              } 
        
        }
@@ -27,7 +27,7 @@ environment
        {
          steps
              {
-
+              sh ''' echo "the Step is success "  '''
              }
 
        }
@@ -36,7 +36,7 @@ environment
        {
          steps
              {
-
+              sh ''' echo "the Step is success "  '''
              }
 
        }
@@ -47,14 +47,14 @@ post
       failure
           {
 
-
+             sh ''' echo "the Step is success "  '''
       
           }
       
        success
          {
  
-
+            sh ''' echo "the Step is success "  '''
 
          } 
 
