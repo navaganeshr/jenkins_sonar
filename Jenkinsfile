@@ -5,10 +5,7 @@ agent
     {
        label 'master'
     }
-environment 
-    {
-      
-    }
+
 
 
  stages 
