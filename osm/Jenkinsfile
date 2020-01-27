@@ -1,11 +1,111 @@
-pipeline
- {
- 
+pipeline 
+
+{
+agent 
+    {
+       label 'master'
+    }
 
 
+environment 
+    {
+      CSV_PATH = '${WORKSPACE}/uim_file_transfer.csv'
+	  CSV_FILE = '${WORKSPACE}/uim_file_transfer.csv'
+    }
+ stages 
+   {
+     stage('Verifying: CSV file')
+       {
+         steps 
+             {
+              sh ''' 
+                 
+                  if [ -e $CSV_PATH ]
+				     then
+				       echo "csv file exists"
+                  else
+				       echo "ERROR:"
+				       echo "ERROR:"
+				       echo "Please specify the csv file location"
+				       exit 1;
+				  fi 
+				      
+					  MIDDLE_COLUMN_EMPTY=$(grep -no ",," $CSV_FILE | wc -l)
+					  FIRST_COLUMN_EMPTY=$(awk -F "," '{ print $1}' $CSV_FILE | grep -c '^$')
+					  LAST_COLUMN_EMPTY=$(awk -F "," '{ print $3}' $CSV_FILE  | grep -c '^$')
+				  
+				  if  [[  ${MIDDLE_COLUMN_EMPTY} -eq "0" && ${MIDDLE_COLUMN_EMPTY} -eq "0" && ${LAST_COLUMN_EMPTY} -eq "0" ]]
+					then 
+					   echo "The Values are properly put in place"
+				   else 
+					  echo "error:"   
+					  echo "error:"
+					  echo "Values are not properly Placed in the CSV there are null values !!"
+					  echo "Please verify your csv file"
+				  fi
+				  while read line;do
+					 a=$(echo $line | awk -F "," '{ print $1}')
+					 b=$(echo $line | awk -F "," '{ print $2}')
+					if [ -e $a/$b ]
+					   then
+						echo "file exist in the source"
+					   else
+						echo "error:"
+						echo "File dosent exist in the source: $a/$b "
+							exit 1;
+					fi
+				 done < ${CSV_FILE}   
+					 
+        		'''
+             } 
+       
+       }
+    
+    
+    stage('Backup in Target Server')
+       {
+         steps
+             {
+              sh ''' 
+                 sh ''' echo "Backup the files to target environment" '''    							 
+                   
+           
+        		'''
+             }
 
+       }
+     
+    stage('copying files to Target Server')
+       {
+         steps
+             {
+              sh ''' 
+              
+                 sh ''' echo "Copy the files to target environment" '''         
+           
+        		'''
+             }
 
-
-
+       }
 
  }
+post 
+   {
+      failure
+          {
+
+             
+             
+          }
+      
+       success
+         {
+ 
+           sh ''' echo "send the data to elastcisearch"  '''
+             
+         } 
+
+
+
+  }
+}
