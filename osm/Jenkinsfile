@@ -9,8 +9,8 @@ agent
 
 environment 
     {
-      CSV_PATH = '${WORKSPACE}/uim_file_transfer.csv'
-	  CSV_FILE = '${WORKSPACE}/uim_file_transfer.csv'
+      CSV_PATH = "${WORKSPACE}/uim_file_transfer.csv"
+	  CSV_FILE = "${WORKSPACE}/uim_file_transfer.csv"
     }
  stages 
    {
