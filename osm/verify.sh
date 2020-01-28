@@ -20,6 +20,7 @@
 					  echo "error:"
 					  echo "Values are not properly Placed in the CSV there are null values !!"
 					  echo "Please verify your csv file"
+					  exit 1;
 				  fi
 				  while read line;do
 					 a=$(echo $line | awk -F "," '{ print $1}')
