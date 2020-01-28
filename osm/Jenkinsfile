@@ -66,11 +66,11 @@ environment
        {
          steps
              {
-              sh ''' 
+              
                  sh ''' echo "Backup the files to target environment" '''    							 
                    
            
-        		'''
+        		
              }
 
        }
@@ -79,11 +79,10 @@ environment
        {
          steps
              {
-              sh ''' 
+             
               
                  sh ''' echo "Copy the files to target environment" '''         
            
-        		'''
              }
 
        }
@@ -94,7 +93,7 @@ post
       failure
           {
 
-             
+             sh ''' echo "send the data to elastcisearch"  ''' 
              
           }
       
