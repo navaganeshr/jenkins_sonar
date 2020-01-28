@@ -34,7 +34,7 @@ environment
 					  FIRST_COLUMN_EMPTY=$(awk -F "," '{ print $1}' $CSV_FILE | grep -c '^$')
 					  LAST_COLUMN_EMPTY=$(awk -F "," '{ print $3}' $CSV_FILE  | grep -c '^$')
 				  
-				  if  [[  ${MIDDLE_COLUMN_EMPTY} -eq "0" && ${MIDDLE_COLUMN_EMPTY} -eq "0" && ${LAST_COLUMN_EMPTY} -eq "0" ]]
+				  if  [ \( "${MIDDLE_COLUMN_EMPTY}" -eq "0" -a "${FIRST_COLUMN_EMPTY}" -eq "0" -a "${LAST_COLUMN_EMPTY}" -eq "0" \) ]
 					then 
 					   echo "The Values are properly put in place"
 				   else 
